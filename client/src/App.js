@@ -8,7 +8,8 @@ import Webcam from "react-webcam";
 import "./App.css";
 import { drawHand } from "./utilities";
 import Navbar from "./components/Navbar/navbar";
-
+import Sign from "./components/Main/Sign";
+import Output from "./components/Output/Output";
 
 
 function App() {
@@ -40,7 +41,7 @@ function App() {
         image:imageSrc
       }).then(response=> {
        console.log(response)
-       speak({ text:response.data})
+      //  speak({ text:response.data})
       }).catch(err=>console.log(err))
     }
     
@@ -98,20 +99,24 @@ function App() {
     <div >
     <header>
       <Navbar/>
-        {
+      <Sign cameraOpen={camera} setCameraOpen={setCamera}/>
+
+      <div className="SignLang_container">
+      {
           camera?
           <Webcam
           ref={webcamRef}
           style={{
             position: "absolute",
-            marginLeft: "auto",
+            marginLeft: "50%",
             marginRight: "auto",
+            textAlign:"center",
             left: 0,
             right: 0,
-            textAlign: "center",
             zindex: 9,
-            width: 640,
-            height: 480,
+            width: 500,
+            height: 400,
+            borderRadius:10
           }}
         />:<div></div>
         }
@@ -121,16 +126,20 @@ function App() {
           ref={canvasRef}
           style={{
             position: "absolute",
-            marginLeft: "auto",
+            marginLeft:"50%",
             marginRight: "auto",
-            left: 0,
+            left: "10px",
+            textAlign:"center",
             right: 0,
-            textAlign: "center",
             zindex: 9,
-            width: 640,
-            height: 480,
+            width: 500,
+            height: 400,
+            borderRadius:10
           }}
         />
+           <Output/>
+      </div>
+   
         {/* NEW STUFF */}
 
         {/* NEW STUFF */}

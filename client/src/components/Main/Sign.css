@@ -1,0 +1,22 @@
+.card-container{
+    border: 1px solid lightgray;
+    background-color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.5s;
+
+}
+.sign-container{
+    display: flex;
+    justify-content: space-around;
+     margin-top: 20px;
+}
+
+.card-container>img{
+    padding: 50px;
+    width: 50px;
+}
+
+.card-container:hover{
+    border: 1.5px solid #1434A4;
+}
