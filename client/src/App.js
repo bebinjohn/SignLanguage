@@ -21,7 +21,11 @@ function App() {
   const [model,setModel]=useState(null)
 
   const [camera,setCamera]=useState(false)
+  const [word,setWord]=useState("")
+
+  const [voice,setVoice]=useState(false)
   const { speak } = useSpeechSynthesis();
+  const [signImage, setSignImage] = useState("")
   ///////// NEW STUFF ADDED STATE HOOK
 
   const runHandpose = async () => {
@@ -40,11 +44,29 @@ function App() {
         id:1,
         image:imageSrc
       }).then(response=> {
-       console.log(response)
-      //  speak({ text:response.data})
+       setWord(response.data)
+       console.log(voice)
+        
+          speak({ text:response.data})
+
+      
       }).catch(err=>console.log(err))
     }
     
+  }
+
+
+  const findResult=(base64)=>{
+      if(base64!=null){
+        setSignImage(base64)
+        axios.post(" http://127.0.0.1:5000/",{
+        id:1,
+        image:base64
+      }).then(response=> {
+       setWord(response.data)
+        speak({ text:response.data})
+      }).catch(err=>console.log(err))
+      }
   }
 
   const detect = async (net) => {
@@ -85,6 +107,24 @@ function App() {
     }
   };
 
+
+  const handleInput=()=>{
+    var file = document.getElementById("selectImage").files[0];
+    getBase64(file)
+  }
+
+ const getBase64=(file)=>{
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+    findResult(reader.result)
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+ }
+  
+
   useEffect(()=>{runHandpose()},[]);
 
   useEffect(()=>{
@@ -118,7 +158,18 @@ function App() {
             height: 400,
             borderRadius:10
           }}
-        />:<div></div>
+        />:signImage!==""?<div><img src={signImage} style={{
+          position: "absolute",
+          marginLeft: "50%",
+          marginRight: "auto",
+          textAlign:"center",
+          left: 0,
+          right: 0,
+          zindex: 9,
+          width: 500,
+          height: 400,
+          borderRadius:10
+        }}></img></div>:<div></div>
         }
         
 
@@ -137,7 +188,11 @@ function App() {
             borderRadius:10
           }}
         />
-           <Output/>
+           <Output voice={voice} setVoice={setVoice} word={word}/>
+      </div>
+
+      <div>
+      <input id='selectImage' hidden type="file" onChange={()=>handleInput()} />
       </div>
    
         {/* NEW STUFF */}

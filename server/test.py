@@ -22,7 +22,7 @@ def parseBase64Image(image):
     return encoded_data
 
 
-labels = ["A", "B", "C"]
+labels = ["A", "C","D", "E", "F", "G", "H", "I","J","K","L","M","N","O","P","Q","X","Y","Z","Hello","Favourite","Later","Like","Milk","No"]
 
 
 def predictHandGestures(image):

@@ -1,17 +1,24 @@
 import React from 'react'
 import './Output.css'
-import voice from '../../assets/voice.png'
+import voiceImg from '../../assets/voice.png'
 import '../Main/Sign.css'
 
-export default function Output() {
+export default function Output({word}) {
+
+
+  
+
   return (
     <div className='Sign-Output'>
         <div >
-        <textarea></textarea>
+          <div className='Result'>
+                {word}
+          </div>
+        {/* <textarea style={{fontSize:"30px"}} value={word}></textarea> */}
         </div>
-        <div style={{marginTop:"10px"}}  title="Activate Voice"className='card-container'>
-            <img style={{padding:"17px" , width:"30px",height:"30px"}} src={voice} alt="Image"></img>
-        </div>
+        {/* <div style={voice?{border:"1.5px solid #1434A4",marginTop:"10px"}:null} onClick={()=>toogle()} title="Activate Voice"className='card-container'>
+            <img style={{padding:"17px" , width:"30px",height:"30px"}} src={voiceImg} alt="Image"></img>
+        </div> */}
     </div>
   )
 }
